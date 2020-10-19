@@ -65,7 +65,7 @@ namespace Lab1_2
             string str = "";
             str += ToString();
             for (int i = 0; i < points_value.Length; i++)
-                str += "<" + points_value[i].X + "," + points_value[i].Y + "," + points_value[i].Z + ">";
+                str += "time is:"+(grid.t+i*grid.time_step)+" <" + points_value[i].X + "," + points_value[i].Y + "," + points_value[i].Z + ">\n";
             return str;
         }
     }
