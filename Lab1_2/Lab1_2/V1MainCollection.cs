@@ -34,15 +34,15 @@ namespace Lab1_2
             return flag;
         }
 
-       /*  public void AddDefaults()
+         public void AddDefaults()
          {
              Random rnd = new Random();
-           */ 
+            
         /* Add(new V1DataOnGrid("1", DateTime.UtcNow, new Grid(rnd.Next(100), rnd.Next(5), rnd.Next(20))));
          Add(new V1DataCollection("2", DateTime.UtcNow));
          Add(new V1DataOnGrid("3", DateTime.UtcNow, new Grid(rnd.Next(100), rnd.Next(5), rnd.Next(20))));*/
 
-       /*      Grid new_grid;
+             Grid new_grid;
               V1DataOnGrid value1;
               V1DataCollection value2;
               for (int i = 0; i < 3; i++)
@@ -53,8 +53,8 @@ namespace Lab1_2
                   value2 = new V1DataCollection(Convert.ToString(i * 2 + 1), DateTime.UtcNow);
                   Add(value2);
               }
-         }*/
-        public void AddDefaults()
+         }
+      /*  public void AddDefaults()
         {
             Random rnd = new Random();
             Grid new_grid;
@@ -69,7 +69,7 @@ new_grid);
             value2 = new V1DataCollection("ID2", new DateTime(5, 5, 5));
             value2.InitRandom(5, 1, 4, 3, 4);
             Add(value2);
-        }
+        }*/
 
         public override string ToString()
         {
