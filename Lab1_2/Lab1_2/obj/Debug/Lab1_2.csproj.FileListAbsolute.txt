@@ -5,3 +5,10 @@ C:\Users\Valery\Desktop\Прак\С#\Lab1_2\Lab1_2\bin\Debug\Lab1_2.pdb
 C:\Users\Valery\Desktop\Прак\С#\Lab1_2\Lab1_2\obj\Debug\Lab1_2.exe
 C:\Users\Valery\Desktop\Прак\С#\Lab1_2\Lab1_2\obj\Debug\Lab1_2.pdb
 C:\Users\Valery\Desktop\Прак\С#\Lab1_2\Lab1_2\obj\Debug\Lab1_2.csprojAssemblyReference.cache
+C:\Users\redki\Desktop\Lab1_2\Lab1_2\bin\Debug\Lab1_2.exe.config
+C:\Users\redki\Desktop\Lab1_2\Lab1_2\bin\Debug\Lab1_2.exe
+C:\Users\redki\Desktop\Lab1_2\Lab1_2\bin\Debug\Lab1_2.pdb
+C:\Users\redki\Desktop\Lab1_2\Lab1_2\obj\Debug\Lab1_2.csprojAssemblyReference.cache
+C:\Users\redki\Desktop\Lab1_2\Lab1_2\obj\Debug\Lab1_2.csproj.CoreCompileInputs.cache
+C:\Users\redki\Desktop\Lab1_2\Lab1_2\obj\Debug\Lab1_2.exe
+C:\Users\redki\Desktop\Lab1_2\Lab1_2\obj\Debug\Lab1_2.pdb
