@@ -34,25 +34,41 @@ namespace Lab1_2
             return flag;
         }
 
+       /*  public void AddDefaults()
+         {
+             Random rnd = new Random();
+           */ 
+        /* Add(new V1DataOnGrid("1", DateTime.UtcNow, new Grid(rnd.Next(100), rnd.Next(5), rnd.Next(20))));
+         Add(new V1DataCollection("2", DateTime.UtcNow));
+         Add(new V1DataOnGrid("3", DateTime.UtcNow, new Grid(rnd.Next(100), rnd.Next(5), rnd.Next(20))));*/
+
+       /*      Grid new_grid;
+              V1DataOnGrid value1;
+              V1DataCollection value2;
+              for (int i = 0; i < 3; i++)
+              {
+                  new_grid = new Grid(rnd.Next(100), rnd.Next(5), rnd.Next(20));
+                  value1 = new V1DataOnGrid(Convert.ToString(i * 2), DateTime.UtcNow, new_grid);
+                  Add(value1);
+                  value2 = new V1DataCollection(Convert.ToString(i * 2 + 1), DateTime.UtcNow);
+                  Add(value2);
+              }
+         }*/
         public void AddDefaults()
         {
             Random rnd = new Random();
-           
-           /* Add(new V1DataOnGrid("1", DateTime.UtcNow, new Grid(rnd.Next(100), rnd.Next(5), rnd.Next(20))));
-            Add(new V1DataCollection("2", DateTime.UtcNow));
-            Add(new V1DataOnGrid("3", DateTime.UtcNow, new Grid(rnd.Next(100), rnd.Next(5), rnd.Next(20))));*/
+            Grid new_grid;
+            V1DataOnGrid value1;
+            V1DataCollection value2;
 
-             Grid new_grid;
-             V1DataOnGrid value1;
-             V1DataCollection value2;
-             for (int i = 0; i < 3; i++)
-             {
-                 new_grid = new Grid(rnd.Next(100), rnd.Next(5), rnd.Next(20));
-                 value1 = new V1DataOnGrid(Convert.ToString(i * 2), DateTime.UtcNow, new_grid);
-                 Add(value1);
-                 value2 = new V1DataCollection(Convert.ToString(i * 2 + 1), DateTime.UtcNow);
-                 Add(value2);
-             }
+            new_grid = new Grid(rnd.Next(100), rnd.Next(5), 4);
+            value1 = new V1DataOnGrid("ID1", new DateTime(5, 5, 5),
+new_grid);
+            value1.InitRandom(3, 7);
+            Add(value1);
+            value2 = new V1DataCollection("ID2", new DateTime(5, 5, 5));
+            value2.InitRandom(5, 1, 4, 3, 4);
+            Add(value2);
         }
 
         public override string ToString()

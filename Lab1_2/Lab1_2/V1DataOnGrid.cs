@@ -21,15 +21,22 @@ namespace Lab1_2
 
         public override float[] NearZero(float eps)
         {
+            float t;
             List<float> time = new List<float>();
             for (int i = 0; i < points_value.Length; i++)
             {
                 if (points_value[i].Length() < eps)
                 {
-                    for (int j = 0; j < grid.number_of_grid_points; j++)
+                    t = grid.t;
+                    for(int j = 0; j < i;j++)
+                    {
+                        t += grid.time_step;
+                    }
+                    time.Add(t);
+                    /*for (int j = 0; j < grid.number_of_grid_points; j++)
                     {
                         time.Add(grid.t + j * grid.time_step);
-                    }
+                    }*/
                 }
             }
             return time.ToArray();
@@ -47,6 +54,7 @@ namespace Lab1_2
         public static implicit operator V1DataCollection(V1DataOnGrid value)
         {
             V1DataCollection buf = new V1DataCollection(value.data, value.date);
+            buf.value.Clear();
             for (int i = 0; i < value.points_value.Length; i++)
             {
                 buf.value.Add(new DataItem(value.grid.t+i*value.grid.time_step, value.points_value[i]));
@@ -65,7 +73,9 @@ namespace Lab1_2
             string str = "";
             str += ToString();
             for (int i = 0; i < points_value.Length; i++)
-                str += "time is:"+(grid.t+i*grid.time_step)+" <" + points_value[i].X + "," + points_value[i].Y + "," + points_value[i].Z + ">\n";
+            {
+                str +="time is:"+(grid.t+i*grid.time_step)+" <" + points_value[i].X + "," + points_value[i].Y + "," + points_value[i].Z + ">\n";
+            }
             return str;
         }
     }
