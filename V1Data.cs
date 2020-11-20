@@ -11,6 +11,10 @@ namespace Lab1_2
         public string data { set; get; }
         public DateTime date { set; get; }
 
+        public V1Data()
+        {
+
+        }
         public V1Data(string new_data, DateTime new_date)
         {
             data = new_data;

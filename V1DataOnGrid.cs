@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using System.Collections;
 
 namespace Lab1_2
 {
-    class V1DataOnGrid : V1Data                  /*значения поля на равномерной сетке, которые хранятся в массиве*/
+    class V1DataOnGrid : V1Data, IEnumerable<DataItem>                  /*значения поля на равномерной сетке, которые хранятся в массиве*/
     {
         public Grid grid { set; get; }
         public Vector3[] points_value { set; get; }
+        List<DataItem> points = new List<DataItem>();
 
         public V1DataOnGrid(string new_data, DateTime new_date, Grid new_grid) : base(new_data, new_date)
         {
@@ -28,7 +30,7 @@ namespace Lab1_2
                 if (points_value[i].Length() < eps)
                 {
                     t = grid.t;
-                    for(int j = 0; j < i;j++)
+                    for (int j = 0; j < i; j++)
                     {
                         t += grid.time_step;
                     }
@@ -57,9 +59,9 @@ namespace Lab1_2
             buf.value.Clear();
             for (int i = 0; i < value.points_value.Length; i++)
             {
-                buf.value.Add(new DataItem(value.grid.t+i*value.grid.time_step, value.points_value[i]));
+                buf.value.Add(new DataItem(value.grid.t + i * value.grid.time_step, value.points_value[i]));
             }
-               
+
             return buf;
         }
 
@@ -74,16 +76,64 @@ namespace Lab1_2
             str += ToString();
             for (int i = 0; i < points_value.Length; i++)
             {
-                str +="time is:"+(grid.t+i*grid.time_step)+" <" + points_value[i].X + "," + points_value[i].Y + "," + points_value[i].Z + ">\n";
+                str += "time is:" + (grid.t + i * grid.time_step) + " <" + points_value[i].X + "," + points_value[i].Y + "," + points_value[i].Z + ">\n";
             }
             return str;
         }
-
-        public interface IEnumerable<DataItem>
+        /*IEnumerator<DataItem> IEnumerable<DataItem>.GetEnumerator()
         {
-            
+            //Console.WriteLine("IEnumerable<Item>.GetEnumerator()");
+            for (int i = 0; i < grid.number_of_grid_points; i++)
+            {
+                points.Add(new DataItem(grid.t + i * grid.time_step, points_value[i]));
+            }
+            return points.GetEnumerator();
+        }
 
+        public IEnumerator GetEnumerator()
+        {
+            return ((IEnumerable<DataItem>)points).GetEnumerator();
+        }*/
 
+        /* public interface IEnumerable<DataItem>.GetEnumerator()
+         {
+             IEnumerator GetEnumerator();
+         }
+         public IEnumerator GetEnumerator()
+         {
+             //Console.WriteLine("IEnumerable<Item>.GetEnumerator()");
+             for (int i = 0; i < grid.number_of_grid_points; i++)
+             {
+                 //points.Add(new DataItem(grid.t + i * grid.time_step, points_value[i]));
+                 yield return new DataItem(grid.t + i * grid.time_step, points_value[i]);
+             }
+         }*/
+
+        IEnumerator<DataItem> IEnumerable<DataItem>.GetEnumerator()
+        {
+            //Console.WriteLine("IEnumerable<Item>.GetEnumerator()");
+            return points.GetEnumerator();
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            for (int i = 0; i < grid.number_of_grid_points; i++)
+            {
+                //points.Add(new DataItem(grid.t + i * grid.time_step, points_value[i]));
+                yield return new DataItem(grid.t + i * grid.time_step, points_value[i]);
+            }
+        }
+
+        public override string ToLongString(string format)
+        {
+            string str = "";
+            str += "type is: V1DataOnGrid " + "\ndata is:" + base.data + "\ndate is: " + base.date + " " + grid.ToString(format) + "\n";
+            for (int i = 0; i < points_value.Length; i++)
+            {
+                str += "time is:" + String.Format(format, grid.t + i * grid.time_step) + " <" + String.Format(format, points_value[i].X) + 
+                    "," + String.Format(format, points_value[i].Y) + "," + String.Format(format, points_value[i].Z) + String.Format(format, points_value[i].Length())+">\n";
+            }
+            return str;
         }
     }
 }

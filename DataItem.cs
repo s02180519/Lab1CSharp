@@ -24,12 +24,11 @@ namespace Lab1_2
             str += "<" + coordinates.X + "," + coordinates.Y + "," + coordinates.Z + ">";
             return str;
         }
-
         public string ToString(string format)
         {
             string str = "";
-            str +="current time:"+String.Format(format,t) + " current coordinates:<"+String.Format(format,coordinates.X)+","+ 
-                String.Format(format, coordinates.Y)+","+ String.Format(format, coordinates.Z)+"> vector`s length:"+ String.Format(format, coordinates.Length())+"\n";
+            str += "current time:" + String.Format(format, t) + " current coordinates:<" + String.Format(format, coordinates.X) + "," +
+                String.Format(format, coordinates.Y) + "," + String.Format(format, coordinates.Z) + "> vector`s length:" + String.Format(format, coordinates.Length()) + "\n";
             return str;
         }
     }

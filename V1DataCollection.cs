@@ -4,12 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using System.IO;
+using System.Collections;
 
 namespace Lab1_2
 {
-    class V1DataCollection:V1Data           /*значения поля на неравномерной сетке, которые хранятся в коллекции List<DataItem>*/
+    class V1DataCollection:V1Data, IEnumerable<DataItem>            /*значения поля на неравномерной сетке, которые хранятся в коллекции List<DataItem>*/
     {
         public List<DataItem> value { get; set; }
+
+        public V1DataCollection(string filename)
+        {
+            FileStream fs = null;                               //new_data;new_date;time1;coordinate1.X;coordinate1.Y;time2;coordinate1.Z;coordinate2.X;coordinate2.Y;coordinate2.Z;...
+            try
+            {
+                DataItem tmp;
+                string file_string;
+                fs = new FileStream(filename, FileMode.Open);
+                BinaryReader reader = new BinaryReader(fs);
+                file_string=reader.ReadString();
+                string[] file_data = file_string.Split(new char[] { ';' });
+                base.data = file_data[0];
+                base.date=Convert.ToDateTime(file_data[1]);
+                for(int i = 2; i < file_data.Length; i += 4)
+                {
+                    tmp = new DataItem(Convert.ToSingle(file_data[i]), new Vector3(Convert.ToSingle(file_data[i+1]), Convert.ToSingle(file_data[i+2]), Convert.ToSingle(file_data[i+3])));
+                    value.Add(tmp);
+                }
+                reader.Close(); // вызывает binaryReader.Dispose(true);
+                                      // освобождает все управляемые и неуправляемые ресурсы
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (fs != null) fs.Close(); // закрывает поток и освобождает все ресурсы
+            }
+        }
 
         public V1DataCollection(string new_data, DateTime new_date) : base(new_data, new_date)
         {
@@ -56,6 +90,42 @@ namespace Lab1_2
             for (int i = 0; i < value.Count; i++)
             {
                 str = str + "\n" + value[i].ToString();
+            }
+            return str;
+        }
+        public IEnumerator<DataItem> GetEnumerator()
+        {
+            //Console.WriteLine("IEnumerator<Book> GetEnumerator()");
+            return value.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+           // Console.WriteLine("IEnumerable.GetEnumerator()");
+            return value.GetEnumerator();
+        }
+
+        /* IEnumerator IEnumerable.GetEnumerator()
+         {
+             return ((IEnumerable<DataItem>)value).GetEnumerator();
+         }*/
+
+        /*public IEnumerator GetEnumerator()
+        {
+            for (int i = 0; i < value.Count() ; i++)
+            {
+                //points.Add(new DataItem(grid.t + i * grid.time_step, points_value[i]));
+                yield return value[i];
+            }
+        }*/
+        public override string ToLongString(string format)
+        {
+            string str = "";
+            str += "type is: V1DataCollection " + "\ndata is:" + base.data + "\ndate is: " + base.date + "\n";
+            for (int i = 0; i < value.Count; i++)
+            {
+                str += "time is:" + String.Format(format, value[i].t) + " <" + String.Format(format, value[i].coordinates.X) +"," +
+                    String.Format(format, value[i].coordinates.Y) + "," + String.Format(format, value[i].coordinates.Z) + String.Format(format, value[i].coordinates.Length()) + ">\n";
             }
             return str;
         }

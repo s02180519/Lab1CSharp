@@ -22,7 +22,6 @@ namespace Lab1_2
         {
             return "time is:" + t + "\ntime step is: " + time_step + "\nnumber of grid point:" + number_of_grid_points + "\n";
         }
-
         public string ToString(string format)
         {
             return "time is:" + String.Format(format, t) + "\ntime step is: " + String.Format(format, time_step) +
