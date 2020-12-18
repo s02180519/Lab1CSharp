@@ -12,7 +12,6 @@ namespace Lab1_2
     {
         public Grid grid { set; get; }
         public Vector3[] points_value { set; get; }
-      //  List<DataItem> points = new List<DataItem>();
 
         public V1DataOnGrid(string new_data, DateTime new_date, Grid new_grid) : base(new_data, new_date)
         {
@@ -80,64 +79,18 @@ namespace Lab1_2
             }
             return str;
         }
-        /*IEnumerator<DataItem> IEnumerable<DataItem>.GetEnumerator()
-        {
-            //Console.WriteLine("IEnumerable<Item>.GetEnumerator()");
-            for (int i = 0; i < grid.number_of_grid_points; i++)
-            {
-                points.Add(new DataItem(grid.t + i * grid.time_step, points_value[i]));
-            }
-            return points.GetEnumerator();
-        }
-        public IEnumerator GetEnumerator()
-        {
-            return ((IEnumerable<DataItem>)points).GetEnumerator();
-        }*/
-
-        /* public interface IEnumerable<DataItem>.GetEnumerator()
-         {
-             IEnumerator GetEnumerator();
-         }
-         public IEnumerator GetEnumerator()
-         {
-             //Console.WriteLine("IEnumerable<Item>.GetEnumerator()");
-             for (int i = 0; i < grid.number_of_grid_points; i++)
-             {
-                 //points.Add(new DataItem(grid.t + i * grid.time_step, points_value[i]));
-                 yield return new DataItem(grid.t + i * grid.time_step, points_value[i]);
-             }
-         }*/
+        
 
         IEnumerator<DataItem> IEnumerable<DataItem>.GetEnumerator()
         {
-            List<DataItem> value = new List<DataItem>();
             for (int i = 0; i < grid.number_of_grid_points; i++)
             {
-                value.Add(new DataItem(grid.t + i * grid.time_step, points_value[i]));
+                yield return new DataItem(grid.t + i * grid.time_step, points_value[i]);
             }
-                return value.GetEnumerator();
 
         }
 
-       /* IEnumerator IEnumerable.GetEnumerator()
-        {
-            //List<DataItem> value=new List<DataItem>();
-            /*  for (int i = 0; i < grid.number_of_grid_points; i++)
-              {
-                  value.Add(new DataItem(grid.t + i * grid.time_step, points_value[i]));*/
-            //yield return (DataItem)GetEnumerator(i);
-            /*var tmp = (V1DataOnGrid)GetEnumerator(i);
-            var tmp_collection = (V1DataCollection)tmp;
-            yield return (DataItem)tmp_collection;*/
-            //yield return (DataItem)GetEnumerator(i);
-            // }
-            // yield return new DataItem(grid.t + i * grid.time_step, points_value[i]);
-            //         return value.GetEnumerator();
-           /* for (int i = 0; i < grid.number_of_grid_points; i++)
-            {
-                yield return points_value[i];
-            }
-        }*/
+     
 
         public override string ToLongString(string format)
         {

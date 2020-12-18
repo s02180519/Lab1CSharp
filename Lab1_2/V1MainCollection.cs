@@ -70,15 +70,12 @@ namespace Lab1_2
 
         public IEnumerable<float> time_one_time
         {get{
-               // Console.WriteLine("OK");
-                 var query_1=from elem in (from item in elements where item is V1DataOnGrid select (V1DataOnGrid)item) select ((V1DataCollection)elem).value;
-               // Console.WriteLine("OK");
-                var query_2= from elem in (from item in elements where item is V1DataCollection select (V1DataCollection)item) select elem.value;
-                  query_1=from elem in query_1.Union(query_2) select elem;
-                var times = from elem in query_1.First()
-                              where query_1.First().Count(param=>param.t==elem.t)==1
-                              select elem.t;
-
+                var query_1 = from elem in (from item in elements where item is V1DataOnGrid select (V1DataOnGrid)item) from elem_DataItem in elem select elem_DataItem;
+                var query_2 = from elem in (from item in elements where item is V1DataCollection select (V1DataCollection)item) from elem_DataItem in elem select elem_DataItem;
+                var res = query_1.Union(query_2);
+                IEnumerable<float> times = (from elem in res
+                                            where res.Count(param => param.t == elem.t) == 1
+                                            select elem.t);
                 return times;
             }
         }
