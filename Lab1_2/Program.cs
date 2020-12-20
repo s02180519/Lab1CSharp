@@ -11,28 +11,26 @@ namespace Lab1
 {
     class Program
     {
-
+        public static void DataChangedCollector(object sender, DataChangedEventArgs args)
+        {
+           // Console.WriteLine("DataChangedCollector");
+            Console.WriteLine(args.Data+" "+args.ChangeInfo);
+        }
         static void Main(string[] args)
         {
-
+            Console.WriteLine("Lab3");
             V1MainCollection element_collection = new V1MainCollection();
+            element_collection.DataChanged += DataChangedCollector;
+           
             element_collection.AddDefaults();
-            Console.WriteLine("\n\n*********************\nLab_2*");
-            Console.WriteLine("Exercise 1");
-            V1DataCollection V1DataCollection_element=new V1DataCollection("init.txt");
-            Console.WriteLine(V1DataCollection_element.ToLongString("{0,3:00.00}"));
-            Console.WriteLine("\n\n*********************\nExercise 2");
-            Console.WriteLine("max measurement`s count: "+element_collection.max_count+"\n\nelements in descending order\n");
-            foreach (var elem in element_collection.V1Data_ordered_by_coordinates_length)
-            {
-               // Console.WriteLine("OK");
-                Console.WriteLine(elem.ToString("{0,3:00.00}"));
-            }
-            Console.WriteLine("\n***********************\none time t");
-            foreach(var elem in element_collection.time_one_time)
-            {
-                Console.WriteLine(/*elem.ToString("{0,3:00.00}")*/String.Format("{0,3:00.00}",elem));
-            }
+            V1DataCollection value2;
+            DateTime date = new DateTime(10, 10, 10);
+            value2 = new V1DataCollection("ID6", date);
+            value2.InitRandom(5, 1, 4, 3, 4);
+            element_collection.Add(value2);
+            element_collection[3]=value2;
+            element_collection[3].Data = "ChangeInformation";
+            element_collection.Remove("ChangeInformation", date);
             Console.ReadLine();
         }
     }
