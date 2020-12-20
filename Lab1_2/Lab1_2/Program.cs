@@ -11,38 +11,26 @@ namespace Lab1
 {
     class Program
     {
-
+        public static void DataChangedCollector(object sender, DataChangedEventArgs args)
+        {
+           // Console.WriteLine("DataChangedCollector");
+            Console.WriteLine(args.Data+" "+args.ChangeInfo);
+        }
         static void Main(string[] args)
         {
-            Grid new_grid = new Grid(3, 1, 3);
-            float[] t;
-            V1DataOnGrid element = new V1DataOnGrid("blablabla", DateTime.UtcNow, new_grid);
-            Console.WriteLine("TASK1\n" + element.ToLongString());
-            V1DataCollection element_transformed = element;
-            Console.WriteLine("transformed element\n"+element_transformed.ToLongString());
-
+            Console.WriteLine("Lab3");
             V1MainCollection element_collection = new V1MainCollection();
+            element_collection.DataChanged += DataChangedCollector;
+           
             element_collection.AddDefaults();
-           /* V1DataOnGrid value1;
-            element_collection.Add(element_collection.elements[0]);
-            Console.WriteLine("\n\nTASK2\n" + element_collection.ToString());
-            element_collection.Remove(element_collection.elements[0].data, element_collection.elements[0].date);*/
-            Console.WriteLine("\n\nTASK2\n" + element_collection.ToString());
-
-
-            Console.WriteLine("\n\nTASK3");
-            foreach (V1Data elem in element_collection)
-            {
-                t = elem.NearZero(30);
-                Console.WriteLine(elem.ToLongString()+"\nList of values:");
-                if (t.Length == 0)
-                    Console.WriteLine("No elements" + "\n");
-                foreach (float val in t)
-                {
-                    Console.Write(val + " ");
-                }
-                Console.WriteLine("\n\n");
-            }
+            V1DataCollection value2;
+            DateTime date = new DateTime(10, 10, 10);
+            value2 = new V1DataCollection("ID6", date);
+            value2.InitRandom(5, 1, 4, 3, 4);
+            element_collection.Add(value2);
+            element_collection[3]=value2;
+            element_collection[3].Data = "ChangeInformation";
+            element_collection.Remove("ChangeInformation", date);
             Console.ReadLine();
         }
     }
